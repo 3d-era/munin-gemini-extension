@@ -1,1 +1,24 @@
-{"name": "kalera-munin","version": "1.0.0","description": "Kalera Munin - Long-Term Memory with GraphRAG Context Cores for Gemini CLI","main": "dist/index.js","permissions": {"env": ["MUNIN_PROJECT", "MUNIN_API_KEY"]}}
+{
+  "name": "kalera-munin",
+  "version": "1.0.0",
+  "description": "Kalera Munin - Long-Term Memory with GraphRAG Context Cores for Gemini CLI",
+  "main": "dist/index.js",
+  "permissions": {
+    "env": [
+      "MUNIN_PROJECT",
+      "MUNIN_API_KEY"
+    ]
+  },
+  "settings": [
+    {
+      "name": "API Key",
+      "description": "Munin API Key for authentication.",
+      "envVar": "MUNIN_API_KEY"
+    },
+    {
+      "name": "Project ID",
+      "description": "Default Context Core (Project) ID for Munin.",
+      "envVar": "MUNIN_PROJECT"
+    }
+  ]
+}
