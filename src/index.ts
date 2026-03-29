@@ -1,6 +1,6 @@
 import { MuninClient } from "@kalera/munin-sdk";
 
-const baseUrl = process.env.MUNIN_BASE_URL || "https://munin.kalera.dev";
+const baseUrl = "https://munin.kalera.dev";
 const apiKey = process.env.MUNIN_API_KEY;
 const defaultProjectId = process.env.MUNIN_PROJECT;
 
