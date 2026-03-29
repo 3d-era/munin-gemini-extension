@@ -1,6 +1,6 @@
 {
   "name": "kalera-munin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kalera Munin - Long-Term Memory with GraphRAG Context Cores for Gemini CLI",
   "main": "dist/index.js",
   "permissions": {
