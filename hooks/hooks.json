@@ -1,1 +1,30 @@
-{"hooks":{"BeforeAgent":[{"hooks":[{"type":"command","command":"node ${extensionPath}/hooks/before-agent.js","name":"munin-context-injection","description":"Inject recent memories as context for the agent","timeout":10000}]}]}}
+{
+  "hooks": {
+    "BeforeAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/hooks/before-agent.js",
+            "name": "munin-context-injection",
+            "description": "Inject recent memories as context for the agent",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${extensionPath}/hooks/session-end.js",
+            "name": "munin-auto-summarize",
+            "description": "Automatically summarize and store session context on exit",
+            "timeout": 15000
+          }
+        ]
+      }
+    ]
+  }
+}
