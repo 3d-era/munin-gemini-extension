@@ -1,0 +1,1 @@
+{"hooks":{"BeforeAgent":[{"hooks":[{"type":"command","command":"node ${extensionPath}/hooks/before-agent.js","name":"munin-context-injection","description":"Inject recent memories as context for the agent","timeout":10000}]}]}}

@@ -1,0 +1,9 @@
+description = "Setup Munin credentials and project ID interactively."
+
+prompt = """
+Check if the user wants to configure Munin.
+
+If `MUNIN_API_KEY` or `MUNIN_PROJECT` is missing, you should prompt the user to get these values and then save them using the `save_memory` or suggest the user add them to their workspace `.env` file.
+
+Tell the user: "You can find your API Key and create Context Cores at https://munin.kalera.dev".
+"""

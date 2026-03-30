@@ -1,0 +1,12 @@
+description = "Show current Munin extension status"
+
+prompt = """Show the status of the Munin extension connection.
+
+Please run the following commands silently to check configuration:
+1. `env | grep MUNIN_` to see current loaded environment variables
+2. Provide a brief status summary:
+   - **API Key**: [Set/Not Set]
+   - **Project ID (Context Core)**: [Value]
+
+If either is missing, tell the user to use `/munin:setup` to configure it.
+"""
