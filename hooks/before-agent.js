@@ -1,16 +1,24 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 // Quick check if we should run logic
 const projectId = process.env.MUNIN_PROJECT;
 const apiKey = process.env.MUNIN_API_KEY;
 
 if (!projectId || !apiKey) {
-  process.exit(0); // Silent fail if not configured
+  process.stdout.write(JSON.stringify({ continue: true }) + '\n');
+  process.exit(0);
 }
 
-async function run() {
+const chunks = [];
+process.stdin.on('data', (chunk) => chunks.push(chunk));
+process.stdin.on('end', async () => {
   try {
+    const raw = JSON.parse(Buffer.concat(chunks).toString());
+    const userPrompt = raw.prompt || '';
+
+    // If there's a prompt, let's do a semantic search instead of just recent
+    // This provides HYPER-RELEVANT context directly into the LLM
     const url = 'https://munin.kalera.dev/api/mcp/action';
     const resp = await fetch(url, {
       method: 'POST',
@@ -20,28 +28,38 @@ async function run() {
       },
       body: JSON.stringify({
         project: projectId,
-        action: 'recent',
-        payload: { limit: 3 },
+        action: 'search',
+        payload: { query: userPrompt, limit: 3 },
         client: { name: 'munin-gemini-hook', version: '1.0.0' }
       })
     });
     
-    if (!resp.ok) process.exit(0);
+    if (!resp.ok) {
+      process.stdout.write(JSON.stringify({ continue: true }) + '\n');
+      return;
+    }
+    
     const result = await resp.json();
+    let contextText = '';
     
     if (result.success && result.data && result.data.results && result.data.results.length > 0) {
-      console.log("<munin_recent_context>");
-      console.log("<!-- This is injected automatically by Munin Context Core. Do not ignore. -->");
+      contextText += "<munin_recent_context>\n";
+      contextText += "<!-- Injected automatically by Munin Semantic Search. -->\n";
       for (const mem of result.data.results) {
-        console.log(`[Key: ${mem.key} | Tags: ${(mem.tags || []).join(',')}] ${mem.title || ''}`);
-        console.log(mem.content);
-        console.log("---");
+        contextText += `[Key: ${mem.key} | Tags: ${(mem.tags || []).join(',')}] ${mem.title || ''}\n`;
+        contextText += `${mem.content}\n`;
+        contextText += "---\n";
       }
-      console.log("</munin_recent_context>");
+      contextText += "</munin_recent_context>";
     }
+
+    process.stdout.write(JSON.stringify({ 
+      continue: true,
+      systemMessage: contextText || undefined
+    }) + '\n');
+
   } catch (e) {
     // Ignore hook errors to avoid crashing agent
+    process.stdout.write(JSON.stringify({ continue: true }) + '\n');
   }
-}
-
-run();
+});
