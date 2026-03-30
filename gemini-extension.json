@@ -18,7 +18,7 @@
     },
     {
       "name": "Project ID",
-      "description": "Default Context Core (Project) ID for Munin.",
+      "description": "Default Context Core (Project) ID for Munin. (Optional)",
       "envVar": "MUNIN_PROJECT"
     }
   ],
