@@ -36,13 +36,13 @@ process.stdin.on('end', async () => {
     
     if (!resp.ok) {
       process.stdout.write(JSON.stringify({ continue: true }) + '\n');
-      return;
+      process.exit(0);
     }
     
     const result = await resp.json();
     let contextText = '';
     
-    if (result.success && result.data && result.data.results && result.data.results.length > 0) {
+    if (result.success && result.data && result.data.results && Array.isArray(result.data.results) && result.data.results.length > 0) {
       contextText += "<munin_recent_context>\n";
       contextText += "<!-- Injected automatically by Munin Semantic Search. -->\n";
       for (const mem of result.data.results) {
@@ -57,9 +57,11 @@ process.stdin.on('end', async () => {
       continue: true,
       systemMessage: contextText || undefined
     }) + '\n');
+    process.exit(0);
 
   } catch (e) {
     // Ignore hook errors to avoid crashing agent
     process.stdout.write(JSON.stringify({ continue: true }) + '\n');
+    process.exit(0);
   }
 });
