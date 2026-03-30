@@ -1,6 +1,6 @@
 {
   "name": "kalera-munin",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Kalera Munin - Long-Term Memory with GraphRAG Context Cores for Gemini CLI",
   "topics": ["memory", "agent", "kalera", "context", "mcp", "gemini-cli-extension"],
   "permissions": {
