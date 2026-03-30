@@ -1,1 +1,0 @@
-{"name":"@kalera/munin-gemini","version":"1.0.3","type":"module","scripts":{"build":"tsc -p tsconfig.json"},"dependencies":{"@kalera/munin-runtime":"^1.0.0","@kalera/munin-sdk":"^1.0.0"},"devDependencies":{"@types/node":"^25.5.0","typescript":"^5.9.2"}}
