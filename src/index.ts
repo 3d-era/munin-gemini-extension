@@ -9,7 +9,7 @@ const extensionClient = new MuninClient({ baseUrl, apiKey });
 export const tools = [
   {
     name: "munin_store_memory",
-    description: "Store or update a memory in Munin ContextKeep. Requires a unique key and the content.",
+    description: "Store or update a memory in Munin. Requires a unique key and the content.",
     parameters: {
       type: "object",
       properties: {
@@ -34,7 +34,7 @@ export const tools = [
   },
   {
     name: "munin_retrieve_memory",
-    description: "Retrieve a memory by its unique key from ContextKeep.",
+    description: "Retrieve a memory by its unique key from Munin.",
     parameters: {
       type: "object",
       properties: {
