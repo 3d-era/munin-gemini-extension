@@ -1,14 +1,7 @@
 {
-  "name": "kalera-munin",
+  "name": "munin-gemini-extension",
   "version": "1.2.0",
   "description": "Kalera Munin - Long-Term Memory with GraphRAG Context Cores for Gemini CLI",
-  "topics": ["memory", "agent", "kalera", "context", "mcp", "gemini-cli-extension"],
-  "permissions": {
-    "env": [
-      "MUNIN_PROJECT",
-      "MUNIN_API_KEY"
-    ]
-  },
   "settings": [
     {
       "name": "API Key",
@@ -24,7 +17,7 @@
   "mcpServers": {
     "munin-mcp": {
       "command": "npx",
-      "args": ["-y", "@kalera/munin-gemini@latest", "mcp", "gemini-cli-extension"]
+      "args": ["-y", "@kalera/munin-gemini@latest", "mcp"]
     }
   }
 }
