@@ -18,7 +18,11 @@ const chunks = [];
 process.stdin.on('data', (chunk) => chunks.push(chunk));
 process.stdin.on('end', () => {
   console.error('\n\x1b[36m[Munin Context Core]\x1b[0m Session ending.');
+  const hasEncryptionKey = !!process.env.MUNIN_ENCRYPTION_KEY;
   console.error('\x1b[33mTip: If you discussed important architectural decisions, make sure the Agent used "munin_store_memory" before you exit!\x1b[0m\n');
+  if (hasEncryptionKey) {
+    console.error('\x1b[35m[Munin]\x1b[0m E2EE project detected. Ensure "munin_store_memory" was called for critical decisions. The session cannot auto-summarize encrypted memories without the Hash Key.\n');
+  }
   
   process.stdout.write(JSON.stringify({ continue: true }) + '\n');
 });

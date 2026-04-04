@@ -7,6 +7,8 @@ Please run the following commands silently to check configuration:
 2. Provide a brief status summary:
    - **API Key**: [Set/Not Set]
    - **Project ID (Context Core)**: [Value]
+   - **Hash Key (E2EE)**: [Set/Not Set] (only show if MUNIN_ENCRYPTION_KEY is configured)
 
-If either is missing, tell the user to use `/munin:setup` to configure it.
+If any credential is missing, tell the user to use `/munin:setup` to configure it.
+If the Hash Key is set, remind the user that wrong Hash Key will cause memory read/write failures.
 """

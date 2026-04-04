@@ -20,6 +20,14 @@ process.stdin.on('end', async () => {
     // If there's a prompt, let's do a semantic search instead of just recent
     // This provides HYPER-RELEVANT context directly into the LLM
     const url = 'https://munin.kalera.dev/api/mcp/action';
+    const searchPayload = { query: userPrompt, limit: 3 };
+
+    // Inject encryptionKey if set for E2EE projects
+    const encryptionKey = process.env.MUNIN_ENCRYPTION_KEY;
+    if (encryptionKey) {
+      searchPayload.encryptionKey = encryptionKey;
+    }
+
     const resp = await fetch(url, {
       method: 'POST',
       headers: {
@@ -29,7 +37,7 @@ process.stdin.on('end', async () => {
       body: JSON.stringify({
         project: projectId,
         action: 'search',
-        payload: { query: userPrompt, limit: 3 },
+        payload: searchPayload,
         client: { name: 'munin-gemini-hook', version: '1.0.0' }
       })
     });

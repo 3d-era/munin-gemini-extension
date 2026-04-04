@@ -1,9 +1,16 @@
-description = "Setup Munin credentials and project ID interactively."
+description = "Setup Munin credentials, project ID, and Hash Key interactively."
 
 prompt = """
 Check if the user wants to configure Munin.
 
-If `MUNIN_API_KEY` or `MUNIN_PROJECT` is missing, you should prompt the user to get these values and then save them using the `save_memory` or suggest the user add them to their workspace `.env` file.
+1. If `MUNIN_API_KEY` or `MUNIN_PROJECT` is missing, prompt the user for these values
+   and suggest adding them to their workspace `.env` file.
+2. If the project has E2EE (End-to-End Encryption) enabled, also prompt for the
+   Hash Key the user set in the WebUI and suggest adding:
+   `MUNIN_ENCRYPTION_KEY=<hash-key>`
+   to the workspace `.env` file.
+   IMPORTANT: The wrong Hash Key will cause all memory reads/writes to fail.
+3. If all credentials are present, confirm configuration is complete.
 
 Tell the user: "You can find your API Key and create Context Cores at https://munin.kalera.dev".
 """
